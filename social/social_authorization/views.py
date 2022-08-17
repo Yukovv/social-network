@@ -22,4 +22,4 @@ class LoginView(LoginViewGeneric):
 
 
 class LogoutView(LogoutViewGeneric):
-    next_page = reverse_lazy("social_network:index")
+    next_page = reverse_lazy("login")
