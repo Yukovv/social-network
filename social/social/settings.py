@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_authorization.apps.SocialAuthorizationConfig',
+    'social_network.apps.SocialNetworkConfig',
 ]
 
 MIDDLEWARE = [
