@@ -15,7 +15,7 @@ class UserProfile(models.Model):
         primary_key=True,
     )
 
-    birthday = models.DateField()
+    birthday = models.DateField(null=True)
     city = models.CharField(max_length=30, blank=True)
     gender = models.CharField(max_length=10, null=True)
     bio = models.TextField(max_length=300, blank=True)
