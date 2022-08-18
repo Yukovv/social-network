@@ -20,6 +20,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=10, null=True)
     bio = models.TextField(max_length=300, blank=True)
     occupation = models.CharField(max_length=50, blank=True)
+    avatar = models.ImageField(null=True, upload_to='images/avatars')
 
     def __str__(self):
         return f"{self.user.username} profile"
