@@ -1,3 +1,4 @@
+from django.shortcuts import resolve_url
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib.auth.views import (
@@ -17,7 +18,10 @@ class UserCreationView(CreateView):
 
 
 class LoginView(LoginViewGeneric):
-    next_page = reverse_lazy("social_network:profile")
+    next_page = "social_network:profile"
+
+    def get_success_url(self):
+        return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
 
     template_name = "social_authorization/login.html"
 
