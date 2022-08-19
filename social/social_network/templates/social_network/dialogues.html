@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ user.username }} dialogues
+{% endblock %}
+
+{% block content %}
+  <h1>
+    My dialogues
+  </h1>
+
+  {% for dialogue in dialogues %}
+  <a href="{% url 'social_network:dialogue' pk=dialogue.pk %}">{{ dialogue }}</a>
+  {% endfor %}
+
+{% endblock %}

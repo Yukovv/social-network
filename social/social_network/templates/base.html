@@ -53,7 +53,7 @@
         {% if request.user.is_authenticated %}
         <li class="nav-item"><a class="nav-link" href="{% url 'social_network:profile' pk=request.user.pk %}">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Dialogues</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'social_network:dialogues_list' pk=request.user.pk%}">Dialogues</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Feed</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>

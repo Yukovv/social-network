@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Dialogue, Message, Post
+
+
+admin.site.register(Dialogue)
+admin.site.register(Message)
+admin.site.register(Post)

@@ -1,11 +1,13 @@
 from django.http import HttpRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaulttags import url
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from .models import UserModel, Post
+from .models import UserModel, Post, Dialogue as DialogueModel
+from .forms import MessageForm
 from social_authorization.models import UserProfile
 
 
@@ -24,3 +26,35 @@ def start_page(request: HttpRequest):
         return render(request, "social_network/profile.html")
     else:
         return redirect(reverse('login'))
+
+
+class DialoguesListView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, pk):
+        dialogues = DialogueModel.objects.filter(members__in=[request.user.pk])
+        context = {
+            "user": request.user,
+            "dialogues": dialogues,
+        }
+        return render(request, 'social_network/dialogues.html', context)
+
+
+class DialogueView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, dialogue_pk):
+        dialogue = get_object_or_404(DialogueModel, pk=dialogue_pk)
+        if request.user not in dialogue.members:
+            return render(request, "403.html")
+
+        context = {
+            "messages": dialogue.messages
+        }
+        return render(request, "social_network.html", context)
+
+    def post(self, request: HttpRequest, dialogue_pk):
+        form = MessageForm(data=request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.dialogue_pk = dialogue_pk
+            message.user = request.user
+            message.save()
+
+        return redirect(reverse("social_network:dialogue", kwargs={"dialogue_pk": dialogue_pk}))
