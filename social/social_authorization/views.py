@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib.auth.views import (
     LogoutView as LogoutViewGeneric,
@@ -18,6 +18,7 @@ class UserCreationView(CreateView):
 
 class LoginView(LoginViewGeneric):
     next_page = reverse_lazy("social_network:profile")
+
     template_name = "social_authorization/login.html"
 
 
