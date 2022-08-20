@@ -5,12 +5,22 @@
 {% endblock %}
 
 {% block content %}
-  {% for message in messages %}
-    <strong>{{message.user.username }}</strong>
-    {{ message.text }}
-    {{ message.time }}
-    <hr>
-  {% endfor %}
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-1"><strong>{{message.user.username }}</strong></div>
+          <div class="col-5">{{ message.text }}</div>
+          <div class="col-3"><i>{{ message.time }}</i></div>
+        </div>
+        <hr>
+      </div>
+    {% endfor %}
+  {% else %}
+    <strong>No messages yet.</strong>
+  {% endif %}
+
   <div>
     <form method="post">
       {% csrf_token %}

@@ -10,7 +10,14 @@
   </h1>
 
   {% for dialogue in dialogues %}
-  <a href="{% url 'social_network:dialogue' pk=dialogue.pk %}">{{ dialogue }}</a>
+    <a href="{% url 'social_network:dialogue' dialogue_pk=dialogue.pk %}">
+      Dialogue with
+      {% for member in dialogue.members.all %}
+        {% if member.id != user.id %}
+          <strong>{{ member }}</strong>
+        {% endif %}
+      {% endfor %}
+    </a><br>
   {% endfor %}
 
 {% endblock %}
