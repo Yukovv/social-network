@@ -27,6 +27,11 @@ def start_page(request: HttpRequest):
         return redirect(reverse('login'))
 
 
+class UserListView(LoginRequiredMixin, ListView):
+    queryset = UserModel.objects.filter(is_staff=False)
+    template_name = "social_network/users.html"
+
+
 class DialoguesListView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, pk):
         dialogues = DialogueModel.objects.filter(members__in=[request.user.pk]).prefetch_related('members')

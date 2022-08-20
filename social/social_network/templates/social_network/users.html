@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Users List
+{% endblock %}
+
+{% block content %}
+  <h1>Users: </h1>
+
+  {% if object_list %}
+    <ul class="list-group">
+      {% for user in object_list %}
+        {% if user.pk != request.user.pk %}
+          <li class="list-group-item">
+            <a class="text-decoration-none" href="{% url 'social_network:profile' pk=user.id %}">
+              {{ user.username }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div>
+      <strong>No users.</strong>
+    </div>
+  {% endif %}
+
+{% endblock %}

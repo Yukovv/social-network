@@ -12,8 +12,11 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-3"><img src="{% get_media_prefix %}{% firstof user.userprofile.avatar 'images/posts/U999_2_881x513_ag0yvGE.jpeg' %}"></div>
-    <div class="col">
+    <div class="col-md-auto">
+      <img src="{% get_media_prefix %}{% firstof user.userprofile.avatar 'images/avatars/U999_2_881x513.jpeg' %}"
+      hspace="5">
+    </div>
+    <div class="col" align="left">
       birthday: {{ user.userprofile.birthday }}<br>
       city: {{ user.userprofile.city }}<br>
       occupation: {{ user.userprofile.occupation }}<br>

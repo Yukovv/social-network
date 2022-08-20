@@ -55,7 +55,7 @@
         <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'social_network:dialogues_list' pk=request.user.pk %}">Dialogues</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Feed</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'social_network:users' %}">Users</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'social_network:create_post' %}">Add post</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
         {% else %}
