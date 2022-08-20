@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import UserModel, Post, Dialogue as DialogueModel
-from .forms import MessageForm
+from .forms import MessageForm, PostCreationForm
 from social_authorization.models import UserProfile
 
 
@@ -58,3 +58,18 @@ class DialogueView(LoginRequiredMixin, View):
             message.save()
 
         return redirect(reverse("social_network:dialogue", kwargs={"dialogue_pk": dialogue_pk}))
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostCreationForm
+    template_name = "social_network/post_creation.html"
+
+    def get_success_url(self):
+        return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
+
+    def form_valid(self, form):
+        self.object: Post = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)

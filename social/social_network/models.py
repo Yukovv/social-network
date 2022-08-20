@@ -8,8 +8,9 @@ from social_authorization.models import UserModel
 class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField(blank=True, max_length=2000)
-    img = models.ImageField(null=True, upload_to='images/posts')
+    img = models.ImageField(null=True, upload_to='images/posts', )
     likes = models.ManyToManyField(UserModel)
+    time = models.DateTimeField(default=timezone.now)
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True, related_name="posts")
 
