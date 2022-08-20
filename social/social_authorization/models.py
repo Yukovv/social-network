@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from PIL import Image
 
 from django.dispatch import receiver
 
@@ -24,6 +25,14 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} profile"
+    
+
+@receiver(post_save, sender=UserProfile)
+def image_compressor(instance: UserProfile, created: bool, **kwargs):
+    # if created:
+    with Image.open(instance.avatar.path) as avatar:
+        new_avatar = avatar.resize(size=(150, 200))
+        new_avatar.save(instance.avatar.path, optimize=True, quality=50)
 
 
 @receiver(post_save, sender=UserModel)

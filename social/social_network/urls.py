@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import (
     UserProfileView,
@@ -16,4 +18,4 @@ urlpatterns = [
     path('create_post/', PostCreateView.as_view(), name="create_post"),
     path('<int:pk>/dialogues/', DialoguesListView.as_view(), name="dialogues_list"),
     path('dialogues/<int:dialogue_pk>/', DialogueView.as_view(), name="dialogue"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
