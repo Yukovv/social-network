@@ -6,24 +6,38 @@
 
 {% block content %}
   {% load static %}
-  <h1>
-    User {{ user.username }}
+  <h1 align="center">
+    {{ user.username }}
   </h1>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-auto">
-      <img src="{% get_media_prefix %}{% firstof user.userprofile.avatar 'images/avatars/U999_2_881x513.jpeg' %}"
-      hspace="5">
-    </div>
-    <div class="col" align="left">
-      birthday: {{ user.userprofile.birthday }}<br>
-      city: {{ user.userprofile.city }}<br>
-      occupation: {{ user.userprofile.occupation }}<br>
-      <i style="color: gray">last visit: {{ user.last_login }}</i>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-auto" align="left">
+        <img src="{% get_media_prefix %}{% firstof user.userprofile.avatar 'images/avatars/U999_2_881x513.jpeg' %}"
+        hspace="5">
+      </div>
+      <div class="col" align="left">
+        birthday: {{ user.userprofile.birthday }}<br>
+        city: {{ user.userprofile.city }}<br>
+        occupation: {{ user.userprofile.occupation }}<br>
+        <i style="color: gray">last visit: {{ user.last_login }}</i>
+      </div>
     </div>
   </div>
-</div>
+  <hr style="color: black" size="50px">
+
+  <div class="container-fluid">
+    <h2>Posts:</h2>
+    <hr>
+    {% for post in user.posts.all %}
+      <div>
+        <h3>Title: "{{ post.title }}"</h3>
+        <p>{{ post.body }}</p>
+      </div>
+      <div><img src="{% get_media_prefix %}{{ post.img }}"></div>
+      <hr>
+    {% endfor %}
+  </div>
 
 
 {% endblock %}
