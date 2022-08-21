@@ -11,7 +11,7 @@ from social_authorization.models import UserProfile
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):
-    queryset = UserModel.objects.select_related('userprofile')
+    queryset = UserModel.objects.select_related('userprofile').prefetch_related('posts')
     template_name = "social_network/profile.html"
 
     def get_context_data(self, **kwargs):
