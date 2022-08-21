@@ -8,6 +8,7 @@ from .views import (
     DialogueView,
     DialoguesListView,
     PostCreateView,
+    PostDeleteView,
     start_page,
 )
 
@@ -20,4 +21,5 @@ urlpatterns = [
     path('create_post/', PostCreateView.as_view(), name="create_post"),
     path('<int:pk>/dialogues/', DialoguesListView.as_view(), name="dialogues_list"),
     path('dialogues/<int:dialogue_pk>/', DialogueView.as_view(), name="dialogue"),
+    path('posts/<int:pk>/delete-post/', PostDeleteView.as_view(), name="post_delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

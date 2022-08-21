@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete post {{ post.title }}
+{% endblock %}
+
+{% block content %}
+  <h1>Delete post <strong>"{{ post.title }}"</strong>?</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Delete!">
+  </form>
+  <hr>
+  <div>
+    <a href="{% url 'social_network:profile' pk=user.pk %}">Back to profile</a>
+  </div>
+{% endblock %}

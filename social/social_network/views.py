@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import UserModel, Post, Dialogue as DialogueModel
 from .forms import MessageForm, PostCreationForm
@@ -78,3 +78,15 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
+    
+
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = "social_network/post_confirm_delete.html"
+
+    def test_func(self):
+        post = Post.objects.get(pk=self.kwargs["pk"])
+        return post.user.pk == self.request.user.pk
+
+    def get_success_url(self):
+        return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})

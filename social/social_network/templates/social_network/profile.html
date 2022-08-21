@@ -34,7 +34,8 @@
         <h3>Title: "{{ post.title }}"</h3>
         <p>{{ post.body }}</p>
       </div>
-      <div><img src="{% get_media_prefix %}{{ post.img }}"></div>
+      <div><img src="{% get_media_prefix %}{{ post.img }}"></div><br>
+      <div><a class="btn btn-danger" href="{% url 'social_network:post_delete' pk=post.pk %}">Delete post</a></div>
       <hr>
     {% endfor %}
   </div>
