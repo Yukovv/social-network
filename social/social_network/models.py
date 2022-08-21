@@ -27,6 +27,15 @@ class Post(models.Model):
 
 class Dialogue(models.Model):
     members = models.ManyToManyField(UserModel)
+    
+    @classmethod
+    def create(cls, *users: UserModel):
+        dialogue = cls()
+        dialogue.save()
+        print(dialogue.id)
+        for user in users:
+            dialogue.members.add(user)
+        return dialogue    
 
 
 class Message(models.Model):
