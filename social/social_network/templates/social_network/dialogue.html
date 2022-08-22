@@ -6,20 +6,19 @@
 
 {% block content %}
 
-  {% if messages %}
-    {% for message in messages %}
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-1"><strong>{{message.user.username }}</strong></div>
-          <div class="col-5">{{ message.text }}</div>
-          <div class="col-3"><i>{{ message.time }}</i></div>
-        </div>
-        <hr>
+  {% for message in messages %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-auto"><strong>{{message.user.username }}</strong></div>
+        <div class="col-5">{{ message.text }}</div>
+        <div class="col" align="right"><i>{{ message.time }}</i></div>
       </div>
-    {% endfor %}
-  {% else %}
+      <hr>
+    </div>
+
+  {% empty %}
     <strong>No messages yet.</strong>
-  {% endif %}
+  {% endfor %}
 
   <div>
     <form method="post">
