@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Friend Request List
+{% endblock %}
+
+{% block content %}
+  <h1>Friend requests:</h1><hr>
+
+  {% for friend_request in object_list %}
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col">
+            <a class="text-decoration-none" href="{% url 'social_network:profile' pk=friend_request.sender.id %}">
+              {{ friend_request.sender.username }}
+            </a>
+          </div>
+
+          <div class="col-sm-auto">
+            <form action="{% url 'social_network:accept_friend' friend_request_pk=friend_request.pk %}"
+                  method="post">
+              {% csrf_token %}
+              <input class="btn btn-primary btn-sm" type="submit" value="Accept">
+            </form>
+          </div>
+
+          <div class="col-sm-auto">
+            <form action="{% url 'social_network:decline_friend' friend_request_pk=friend_request.pk %}"
+                  method="post">
+              {% csrf_token %}
+              <input class="btn btn-dark btn-sm" type="submit" value="Decline">
+            </form>
+          </div>
+        </div>
+      </li>
+    </ul>
+  {% empty %}
+    <strong>No requests.</strong>
+  {% endfor %}
+
+{% endblock %}

@@ -12,18 +12,21 @@ from .models import UserModel
 
 class UserCreationView(CreateView):
     model = UserModel
-    success_url = reverse_lazy("social_network:profile")
     form_class = UserCreationForm
     template_name = "social_authorization/register.html"
-
-
-class LoginView(LoginViewGeneric):
-    next_page = "social_network:profile"
 
     def get_success_url(self):
         return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
 
+
+class LoginView(LoginViewGeneric):
+    next_page = "social_network:profile"
     template_name = "social_authorization/login.html"
+
+    def get_success_url(self):
+        return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
+
+
 
 
 class LogoutView(LogoutViewGeneric):

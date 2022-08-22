@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+
+  {# personal info #}
   {% load static %}
   <h1 align="center">
     {{ user.username }}
@@ -17,12 +19,23 @@
           <img src="{% get_media_prefix %}{% firstof user.userprofile.avatar 'images/avatars/U999_2_881x513.jpeg' %}"
         hspace="5">
         </div><br>
-        {% if dialogue %}
+
         <div>
-          <a class="btn btn-light" href="{% url 'social_network:dialogue' dialogue_pk=dialogue.pk %}">Message</a>
-        </div>
-        {% endif %}
+          {% if dialogue %}
+            <a class="btn btn-light" href="{% url 'social_network:dialogue' dialogue_pk=dialogue.pk %}">Message</a>
+          {% endif %}
+        </div><br>
+
+        <div>
+          {% if is_add_friend_btn %}
+            <form action="{% url 'social_network:add_friend' receiver_pk=user.pk %}" method="post">
+              {% csrf_token %}
+              <input class="btn btn-primary" type="submit" value="Add to friend">
+            </form>
+          {% endif %}
+        </div><br>
       </div>
+
       <div class="col" align="left">
         birthday: {{ user.userprofile.birthday }}<br>
         city: {{ user.userprofile.city }}<br>
@@ -30,24 +43,34 @@
         <i style="color: gray">last visit: {{ user.last_login }}</i>
       </div>
     </div>
-  </div>
-  <hr>
+  </div><hr>
 
-  <div class="container-fluid">
-    <h2>Posts:</h2>
-    <hr style="color: white">
-    {% for post in user.posts.all %}
-      <div>
-        <h3>Title: "{{ post.title }}"</h3>
-        <p>{{ post.body }}</p>
-      </div>
-      <div><img src="{% get_media_prefix %}{{ post.img }}"></div><br>
-      {% if request.user.pk == post.user.pk %}
-      <div><a class="btn btn-danger" href="{% url 'social_network:post_delete' pk=post.pk %}">Delete post</a></div>
-      {% endif %}
-      <hr>
-    {% endfor %}
-  </div>
+
+  {# user's posts #}
+  {% if user.posts.all %}
+    <div class="container-fluid">
+      <h2>Posts:</h2>
+
+      {% for post in user.posts.all %}
+        <hr style="color: blue">
+
+        <div>
+          <h3>Title: "{{ post.title }}"</h3>
+          <p>{{ post.body }}</p>
+        </div>
+
+        {% if post.img %}
+            <div><img src="{% get_media_prefix %}{{ post.img }}"></div><br>
+        {% endif %}
+
+        {% if request.user.pk == post.user.pk %}
+        <div>
+          <a class="btn btn-danger" href="{% url 'social_network:post_delete' pk=post.pk %}">Delete post</a>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
 
 
 {% endblock %}

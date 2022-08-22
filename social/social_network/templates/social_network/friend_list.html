@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Friend List
+{% endblock %}
+
+{% block content %}
+  <h1>Friend requests:</h1><hr>
+
+  {% for friend in object.friends.all %}
+    {{ friend_list }}
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col">
+            <a class="text-decoration-none" href="{% url 'social_network:profile' pk=friend.id %}">
+              {{ friend.username }}
+            </a>
+          </div>
+
+          <div class="col-sm-auto">
+            <form action="{% url 'social_network:remove_friend' user_to_remove_pk=friend.pk %}"
+                  method="post">
+              {% csrf_token %}
+              <input class="btn btn-dark btn-sm" type="submit" value="Remove from friends">
+            </form>
+          </div>
+        </div>
+      </li>
+    </ul>
+  {% empty %}
+    <strong>No friends :(</strong>
+  {% endfor %}
+
+{% endblock %}

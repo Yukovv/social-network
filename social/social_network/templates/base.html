@@ -55,7 +55,10 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'social_network:profile' pk=request.user.pk %}">Profile</a></li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Friends</a></li>
+          <a class="nav-link" href="{% url 'social_network:friend_list' pk=request.user.pk %}">Friends</a></li>
+        <li class="nav-item">
+          <a class="nav-link"
+             href="{% url 'social_network:friend_requests' pk=user.pk %}">Friend requests</a></li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'social_network:dialogues_list' pk=request.user.pk %}">Dialogues</a></li>
         <li class="nav-item">
