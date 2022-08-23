@@ -19,10 +19,24 @@ class Post(models.Model):
         return self.title
     
     def add_like(self, some_user: UserModel):
+        """
+        Add user to likes.
+        """
         self.likes.add(some_user)
+        self.save()
         
-    def remove_like(self, some_user: UserModel):    
+    def remove_like(self, some_user: UserModel):
+        """
+        Remove user from likes.
+        """
         self.likes.remove(some_user)
+        self.save()
+
+    def get_likes(self):
+        """
+        Return a list of users eho liked the post.
+        """
+        return [user for user in self.likes.all()]
         
 
 class Dialogue(models.Model):
@@ -89,16 +103,11 @@ class FriendRequest(models.Model):
         add receiver to sender friends list and vice versa
         """
         receiver_friend_list = FriendList.objects.get(user=self.receiver)
-        if not receiver_friend_list:
-            receiver_friend_list = FriendList(user=self.receiver)
-            receiver_friend_list.save()
         receiver_friend_list.add_friend(self.sender)
 
         sender_friend_list = FriendList.objects.get(user=self.sender)
-        if not sender_friend_list:
-            sender_friend_list = FriendList(user=self.sender)
-            sender_friend_list.save()
         sender_friend_list.add_friend(self.receiver)
+
         self.is_active = False
         self.save()
 

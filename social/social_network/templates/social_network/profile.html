@@ -54,7 +54,7 @@
       {% for post in user.posts.all %}
         <hr style="color: blue">
 
-        <div>
+        <div id="post_{{post.pk}}">
           <h3>Title: "{{ post.title }}"</h3>
           <p>{{ post.body }}</p>
         </div>
@@ -63,11 +63,35 @@
             <div><img src="{% get_media_prefix %}{{ post.img }}"></div><br>
         {% endif %}
 
-        {% if request.user.pk == post.user.pk %}
-        <div>
-          <a class="btn btn-danger" href="{% url 'social_network:post_delete' pk=post.pk %}">Delete post</a>
+        <div class="row">
+          <div class="col" align="left">
+            {% if user in post.likes.all %}
+              <form action="{% url 'social_network:like' post_pk=post.pk %}" method="post">
+                {% csrf_token %}
+                <input
+                    type="submit"
+                    class="btn btn-danger btn-sm"
+                    value="{{ post.likes.all|length }} Likes"
+                >
+              </form>
+            {% else %}
+              <form action="{% url 'social_network:like' post_pk=post.pk %}" method="post">
+                {% csrf_token %}
+                <input
+                    type="submit"
+                    class="btn btn-light btn-sm"
+                    value="{{ post.likes.all|length }} Likes"
+                >
+              </form>
+            {% endif %}
+          </div>
+
+          {% if request.user.pk == post.user.pk %}
+          <div class="col" align="right">
+            <a class="btn btn-dark" href="{% url 'social_network:post_delete' pk=post.pk %}">Delete post</a>
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       {% endfor %}
     </div>
   {% endif %}

@@ -14,6 +14,7 @@ from .views import (
     DeclineFriendRequestView,
     PostCreateView,
     PostDeleteView,
+    LikeView,
     DialogueView,
     DialoguesListView,
 )
@@ -38,7 +39,8 @@ urlpatterns = [
     # post views
     path('posts/<int:pk>/delete-post/', PostDeleteView.as_view(), name="post_delete"),
     path('create_post/', PostCreateView.as_view(), name="create_post"),
-    
+    path('like_post/<int:post_pk>', LikeView.as_view(), name="like"),
+
     # dialogue views
     path('<int:pk>/dialogues/', DialoguesListView.as_view(), name="dialogues_list"),
     path('dialogues/<int:dialogue_pk>/', DialogueView.as_view(), name="dialogue"),

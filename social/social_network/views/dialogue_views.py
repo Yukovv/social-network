@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 
-from social.social_network.forms import MessageForm
-from social.social_network.models import Dialogue as DialogueModel
+
+from social_network.models import Dialogue as DialogueModel
+from social_network.forms import MessageForm
 
 
 class DialoguesListView(LoginRequiredMixin, View):

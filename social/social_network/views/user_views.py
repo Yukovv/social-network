@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
-from social.social_network.models import UserModel, Post, Dialogue as DialogueModel, FriendRequest
+from social_network.models import UserModel, Post, Dialogue as DialogueModel, FriendRequest
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):
@@ -27,16 +27,16 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         # is_add_friend_btn var for 'add to friends' button in the template
         is_add_friend_btn = True
         # friend request from user1 to user2 and from user2 to user1
-        friend_request_1 = FriendRequest.objects.filter(sender=self.request.user, receiver=self.object)
-        friend_request_2 = FriendRequest.objects.filter(sender=self.object, receiver=self.request.user)
+        friend_request_1 = FriendRequest.objects.filter(sender=self.request.user, receiver=self.object).first()
+        friend_request_2 = FriendRequest.objects.filter(sender=self.object, receiver=self.request.user).first()
         if (
             self.request.user.pk == self.object.pk
-            or self.request.user in self.object.friends.all()
-            or (friend_request_1 and friend_request_1[0].is_active)
-            or (friend_request_2 and friend_request_2[0].is_active)
+            or self.request.user in [friend.user for friend in self.object.friends.all()]
+            or (friend_request_1 and friend_request_1.is_active)
+            or (friend_request_2 and friend_request_2.is_active)
         ):
             is_add_friend_btn = False
-        print(FriendRequest.objects.filter(sender=self.request.user, receiver=self.object))
+
         context["is_add_friend_btn"] = is_add_friend_btn
 
         return context

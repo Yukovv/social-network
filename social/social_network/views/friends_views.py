@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from social.social_network.models import UserModel, FriendRequest, FriendList
+from social_network.models import UserModel, FriendRequest, FriendList
 
 
 class AddToFriendView(LoginRequiredMixin, View):
@@ -14,7 +14,7 @@ class AddToFriendView(LoginRequiredMixin, View):
     """
     def post(self, request: HttpRequest, receiver_pk):
         receiver = UserModel.objects.get(pk=receiver_pk)
-        friend_request = FriendRequest.objects.get(receiver=receiver, sender=request.user)
+        friend_request = FriendRequest.objects.filter(receiver=receiver, sender=request.user).first()
         if (
                 request.user not in receiver.friends.all()
                 and not friend_request

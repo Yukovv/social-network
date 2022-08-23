@@ -18,9 +18,9 @@ class UserProfile(models.Model):
         primary_key=True,
     )
 
-    birthday = models.DateField(null=True)
+    birthday = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=30, blank=True)
-    gender = models.CharField(max_length=10, null=True)
+    gender = models.CharField(max_length=10, null=True, blank=True)
     bio = models.TextField(max_length=300, blank=True)
     occupation = models.CharField(max_length=50, blank=True)
     avatar = models.ImageField(null=True, upload_to='images/avatars', blank=True)

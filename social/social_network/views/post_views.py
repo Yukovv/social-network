@@ -1,9 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpRequest
+from django.shortcuts import redirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import CreateView, DeleteView
 
-from social.social_network.forms import PostCreationForm
-from social.social_network.models import Post
+from social_network.forms import PostCreationForm
+from social_network.models import Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -37,3 +40,21 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
+
+
+class LikeView(LoginRequiredMixin, View):
+    """
+    Add or remove like from post
+    """
+    def post(self, request: HttpRequest, post_pk):
+        post = Post.objects.get(pk=post_pk)
+
+        if request.user not in post.likes.all():
+            post.add_like(request.user)
+        else:
+            post.remove_like(request.user)
+
+        return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}) + f"#post_{post_pk}")
+
+
+

@@ -16,7 +16,7 @@ class UserCreationView(CreateView):
     template_name = "social_authorization/register.html"
 
     def get_success_url(self):
-        return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
+        return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
 
 
 class LoginView(LoginViewGeneric):
@@ -25,8 +25,6 @@ class LoginView(LoginViewGeneric):
 
     def get_success_url(self):
         return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
-
-
 
 
 class LogoutView(LogoutViewGeneric):
