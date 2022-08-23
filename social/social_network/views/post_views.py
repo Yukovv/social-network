@@ -54,7 +54,8 @@ class LikeView(LoginRequiredMixin, View):
         else:
             post.remove_like(request.user)
 
-        return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}) + f"#post_{post_pk}")
+        return redirect(request.META.get('HTTP_REFERER') + f"#post_{post_pk}")
+
 
 
 

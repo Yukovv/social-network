@@ -65,7 +65,7 @@
 
         <div class="row">
           <div class="col" align="left">
-            {% if user in post.likes.all %}
+            {% if request.user in post.likes.all %}
               <form action="{% url 'social_network:like' post_pk=post.pk %}" method="post">
                 {% csrf_token %}
                 <input
