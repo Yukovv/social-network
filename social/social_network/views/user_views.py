@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
-from social_network.models import UserModel, Post, Dialogue as DialogueModel, FriendRequest
+from social_network.models import Post, Dialogue as DialogueModel, FriendRequest
+from social_authorization.models import UserModel
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):

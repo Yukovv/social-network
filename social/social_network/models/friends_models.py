@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
-from social_network.models import UserModel
+UserModel = get_user_model()
 
 
 class FriendList(models.Model):

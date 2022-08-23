@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from social_network.models import UserModel, FriendRequest, FriendList
+from social_network.models import FriendRequest, FriendList
+from social_authorization.models import UserModel
 
 
 class AddToFriendView(LoginRequiredMixin, View):
@@ -55,6 +56,8 @@ class RemoveFromFriendsView(LoginRequiredMixin, View):
         friend_list = FriendList.objects.get(user=request.user)
         user_to_remove = UserModel.objects.get(pk=user_to_remove_pk)
         friend_list.end_friendship(some_user=user_to_remove)
+
+        return redirect(request.META.get("HTTP_REFERER"))
 
 
 class FriendRequestsView(LoginRequiredMixin, ListView):
