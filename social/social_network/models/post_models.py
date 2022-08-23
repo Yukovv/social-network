@@ -14,6 +14,9 @@ class Post(models.Model):
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True, related_name="posts")
 
+    class Meta:
+        ordering = ['-time']
+
     def __str__(self):
         return self.title
 

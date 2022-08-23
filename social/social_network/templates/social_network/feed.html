@@ -20,9 +20,12 @@
       <p>{{ post.body }}</p>
     </div>
 
-    {% if post.img %}
-        <div><img src="{% get_media_prefix %}{{ post.img }}"></div><br>
-    {% endif %}
+    <div>
+      {% if post.img %}
+      <img src="{% get_media_prefix %}{{ post.img }}"><br>
+      {% endif %}
+      <i style="color: gray">{{ post.time }}</i>
+    </div><br>
 
     <div class="row">
       <div class="col" align="left">

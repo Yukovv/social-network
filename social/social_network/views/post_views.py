@@ -35,7 +35,7 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
     template_name = "social_network/post_confirm_delete.html"
 
     def test_func(self):
-        post = Post.objects.get(pk=self.kwargs["pk"])
+        post: Post = Post.objects.get(pk=self.kwargs["pk"])
         return post.user.pk == self.request.user.pk
 
     def get_success_url(self):
@@ -47,7 +47,7 @@ class LikeView(LoginRequiredMixin, View):
     Add or remove like from post
     """
     def post(self, request: HttpRequest, post_pk):
-        post = Post.objects.get(pk=post_pk)
+        post: Post = Post.objects.get(pk=post_pk)
 
         if request.user not in post.likes.all():
             post.add_like(request.user)
@@ -59,7 +59,7 @@ class LikeView(LoginRequiredMixin, View):
 
 class FeedView(LoginRequiredMixin, ListView):
     """
-    Friends's posts view
+    Friends posts view
     """
     def get_queryset(self):
         friends = [friend.user for friend in self.request.user.friends.all()]
