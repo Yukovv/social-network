@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, ListView
 
 from social_network.forms import PostCreationForm
 from social_network.models import Post
@@ -56,6 +56,17 @@ class LikeView(LoginRequiredMixin, View):
 
         return redirect(request.META.get('HTTP_REFERER') + f"#post_{post_pk}")
 
+
+class FeedView(LoginRequiredMixin, ListView):
+    """
+    Friends's posts view
+    """
+    def get_queryset(self):
+        friends = [friend.user for friend in self.request.user.friends.all()]
+        queryset = Post.objects.filter(user__in=friends).select_related('user').prefetch_related('likes')
+        return queryset
+
+    template_name = 'social_network/feed.html'
 
 
 

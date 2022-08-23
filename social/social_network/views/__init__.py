@@ -7,7 +7,7 @@ from .friends_views import (
     RemoveFromFriendsView,
     DeclineFriendRequestView,
 )
-from .post_views import PostCreateView, PostDeleteView, LikeView
+from .post_views import PostCreateView, PostDeleteView, LikeView, FeedView
 from .user_views import UserProfileView, UserListView, start_page
 
 
