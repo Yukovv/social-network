@@ -37,9 +37,9 @@
       </div>
 
       <div class="col" align="left">
-        birthday: {{ user.userprofile.birthday }}<br>
-        city: {{ user.userprofile.city }}<br>
-        occupation: {{ user.userprofile.occupation }}<br>
+        {% if user.userprofile.birthday %} birthday: {{ user.userprofile.birthday }}<br> {% endif %}
+        {% if user.userprofile.city %} city: {{ user.userprofile.city }}<br> {% endif %}
+        {% if user.userprofile.occupation %} occupation: {{ user.userprofile.occupation }}<br> {% endif %}
         <i style="color: gray">last visit: {{ user.last_login }}</i>
       </div>
     </div>
