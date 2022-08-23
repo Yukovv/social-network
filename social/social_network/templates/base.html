@@ -68,6 +68,8 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'social_network:create_post' %}">Add post</a></li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'social_network:profile_settings' pk=request.user.pk %}">Settings</a></li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
         {% else %}
         <li class="nav-item">

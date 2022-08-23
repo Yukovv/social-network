@@ -12,6 +12,13 @@ UserModel: User = get_user_model()
 
 
 class UserProfile(models.Model):
+
+    class Gender(models.TextChoices):
+        MALE = 'M'
+        FEMALE = 'F'
+        OTHER = 'O'
+        NONE = '-'
+
     user: UserModel = models.OneToOneField(
         UserModel,
         on_delete=models.CASCADE,
@@ -20,7 +27,7 @@ class UserProfile(models.Model):
 
     birthday = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=30, blank=True)
-    gender = models.CharField(max_length=10, null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=Gender.choices, blank=True, default=Gender.NONE)
     bio = models.TextField(max_length=300, blank=True)
     occupation = models.CharField(max_length=50, blank=True)
     avatar = models.ImageField(null=True, upload_to='images/avatars', blank=True)
@@ -30,8 +37,7 @@ class UserProfile(models.Model):
     
 
 @receiver(post_save, sender=UserProfile)
-def image_compressor(instance: UserProfile, created: bool, **kwargs):
-    # if created:
+def image_compressor(instance: UserProfile, **kwargs):
     if instance.avatar:
         with Image.open(instance.avatar.path) as avatar:
             new_avatar = avatar.resize(size=(150, 200))

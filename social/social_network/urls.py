@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from .views import (
     start_page,
     UserProfileView,
+    ProfileSettingsView,
     UserListView,
     FriendRequestsView,
     FriendListView,
@@ -26,7 +27,7 @@ urlpatterns = [
     path('', start_page, name="start_page"),
     
     path('profile/<int:pk>/', UserProfileView.as_view(), name="profile"),
-    
+    path('profile_settings/<int:pk>/', ProfileSettingsView.as_view(), name="profile_settings"),
     path('users/', UserListView.as_view(), name="users"),
     
     # friends views

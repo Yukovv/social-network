@@ -40,6 +40,11 @@
         {% if user.userprofile.birthday %} birthday: {{ user.userprofile.birthday }}<br> {% endif %}
         {% if user.userprofile.city %} city: {{ user.userprofile.city }}<br> {% endif %}
         {% if user.userprofile.occupation %} occupation: {{ user.userprofile.occupation }}<br> {% endif %}
+
+        {% if user.userprofile.bio %}
+          About me: <br>
+          <p>{{ user.userprofile.bio }}</p><br>
+        {% endif %}
         <i style="color: gray">last visit: {{ user.last_login }}</i>
       </div>
     </div>

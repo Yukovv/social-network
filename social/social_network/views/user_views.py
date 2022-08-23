@@ -1,11 +1,13 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic.edit import BaseUpdateView
 
+from social_network.forms import ProfileForm
 from social_network.models import Post, Dialogue as DialogueModel, FriendRequest
-from social_authorization.models import UserModel
+from social_authorization.models import UserModel, UserProfile
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):
@@ -41,6 +43,45 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         context["is_add_friend_btn"] = is_add_friend_btn
 
         return context
+
+
+class ProfileSettingsView(UserPassesTestMixin, UpdateView):
+    """
+    View to change profile info
+    """
+    def get(self, request: HttpRequest, *args, **kwargs):
+        profile = get_object_or_404(UserProfile, user=request.user)
+        return render(request, "social_network/profile_settings.html", {"form": ProfileForm(instance=profile)})
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        profile = get_object_or_404(UserProfile, user=request.user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        print(form)
+        print(form.is_valid())
+        print(form.__dict__)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}))
+
+        return render(request, "social_network/profile_settings.html", {"form": ProfileForm(instance=profile)})
+
+    # model = UserProfile
+    # form_class = ProfileForm
+    # template_name = "social_network/profile_settings.html"
+    #
+    # def get_success_url(self):
+    #     return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
+    #
+    # def post(self, request, *args, **kwargs):
+    #     form = ProfileForm(request.POST, request.FILES)
+    #     form.save()
+    #
+    #     return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}))
+
+    def test_func(self):
+        return self.request.user.pk == self.kwargs["pk"]
 
 
 def start_page(request: HttpRequest):
