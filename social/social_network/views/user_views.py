@@ -57,29 +57,13 @@ class ProfileSettingsView(UserPassesTestMixin, UpdateView):
         profile = get_object_or_404(UserProfile, user=request.user)
         form = ProfileForm(request.POST, request.FILES, instance=profile)
 
-        print(form)
-        print(form.is_valid())
-        print(form.__dict__)
-
         if form.is_valid():
             form.save()
             return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}))
 
         return render(request, "social_network/profile_settings.html", {"form": ProfileForm(instance=profile)})
 
-    # model = UserProfile
-    # form_class = ProfileForm
-    # template_name = "social_network/profile_settings.html"
-    #
-    # def get_success_url(self):
-    #     return reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
-    #
-    # def post(self, request, *args, **kwargs):
-    #     form = ProfileForm(request.POST, request.FILES)
-    #     form.save()
-    #
-    #     return redirect(reverse("social_network:profile", kwargs={"pk": request.user.pk}))
-
+    # user can update only their own profile
     def test_func(self):
         return self.request.user.pk == self.kwargs["pk"]
 

@@ -42,7 +42,7 @@
         {% if user.userprofile.occupation %} occupation: {{ user.userprofile.occupation }}<br> {% endif %}
 
         {% if user.userprofile.bio %}
-          About me: <br>
+          <strong>About me:</strong><br>
           <p>{{ user.userprofile.bio }}</p><br>
         {% endif %}
         <i style="color: gray">last visit: {{ user.last_login }}</i>

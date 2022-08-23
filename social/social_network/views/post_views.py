@@ -34,6 +34,7 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
     queryset = Post.objects.select_related("user")
     template_name = "social_network/post_confirm_delete.html"
 
+    # user can delete only their own posts
     def test_func(self):
         post: Post = Post.objects.get(pk=self.kwargs["pk"])
         return post.user.pk == self.request.user.pk
