@@ -21,6 +21,7 @@ class PostCreationForm(ModelForm):
         
     title = CharField(max_length=400)
     body = CharField(max_length=2000, label="Text")
+    img = ImageField(widget=FileInput(attrs={"class": "form-control-file"}), required=False)
 
 
 class ProfileForm(ModelForm):
