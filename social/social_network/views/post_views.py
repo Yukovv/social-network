@@ -68,6 +68,3 @@ class FeedView(LoginRequiredMixin, ListView):
         return queryset
 
     template_name = 'social_network/feed.html'
-
-
-

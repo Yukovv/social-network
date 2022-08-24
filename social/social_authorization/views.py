@@ -1,5 +1,5 @@
 from django.http import HttpRequest
-from django.shortcuts import resolve_url, redirect, render
+from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib.auth.views import (
@@ -7,8 +7,8 @@ from django.contrib.auth.views import (
     LoginView as LoginViewGeneric,
 )
 
+from social.settings import BASE_DIR, LOGIN_REDIRECT_URL
 from .forms import UserCreationForm
-from .models import UserModel
 
 
 class UserCreationView(CreateView):
@@ -28,20 +28,17 @@ class UserCreationView(CreateView):
             return redirect(reverse("social_network:profile_settings", kwargs={"pk": user.pk}))
 
         return render(request, "social_authorization/register.html", {"form": form})
-    # model = UserModel
-    # form_class = UserCreationForm
-    # template_name = "social_authorization/register.html"
-    #
-    # def get_success_url(self):
-    #     return reverse("social_network:profile_settings", kwargs={"pk": self.request.user.pk})
 
 
 class LoginView(LoginViewGeneric):
-    next_page = "social_network:profile"
     template_name = "social_authorization/login.html"
 
-    def get_success_url(self):
-        return reverse(self.next_page, kwargs={"pk": self.request.user.pk})
+    def get_default_redirect_url(self):
+        """Return the default redirect URL."""
+        if self.next_page:
+            return resolve_url(self.next_page)
+        else:
+            return resolve_url(LOGIN_REDIRECT_URL + str(self.request.user.pk))
 
 
 class LogoutView(LogoutViewGeneric):

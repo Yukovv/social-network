@@ -9,6 +9,3 @@ from .friends_views import (
 )
 from .post_views import PostCreateView, PostDeleteView, LikeView, FeedView
 from .user_views import UserProfileView, UserListView, start_page, ProfileSettingsView
-
-
-
