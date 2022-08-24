@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.edit import BaseUpdateView
 
@@ -78,9 +79,28 @@ def start_page(request: HttpRequest):
         return redirect(reverse('login'))
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, View):
     """
     List of all users.
     """
-    queryset = UserModel.objects.filter(is_staff=False)
-    template_name = "social_network/users.html"
+    # queryset = UserModel.objects.filter(is_staff=False)
+    # template_name = "social_network/users.html"
+    #
+    # def post(self, request: HttpRequest, *args, **kwargs):
+    #     searched = request.POST["searched"]
+    #     result = UserModel.objects.filter(name__contains=searched)
+    #
+    #     return render(request, 'social_network/users.html', {"searched": searched, "result": result})
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+
+        users = UserModel.objects.all().order_by("username")
+        query = request.GET
+
+        if request.GET:
+            query = request.GET["query"]
+            users = UserModel.objects.filter(username__contains=query)
+            print(users)
+
+        return render(request, 'social_network/users.html', {"query": query, "users": users})
+

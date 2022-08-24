@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Users: </h1>
 
-  {% if object_list %}
+  <form method="get" action="{% url 'social_network:users' %}">
+    <div class="input-group">
+      <input
+          type="search"
+          class="form-control rounded"
+          name="query"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon" />
+    </div>
+  </form>
+
+  {% if users %}
+  <h1>Users: </h1>
     <ul class="list-group">
-      {% for user in object_list %}
+      {% for user in users %}
         {% if user.pk != request.user.pk %}
           <li class="list-group-item">
             <a class="text-decoration-none" href="{% url 'social_network:profile' pk=user.id %}">
