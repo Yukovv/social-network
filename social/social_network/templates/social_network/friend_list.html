@@ -5,10 +5,22 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Friend requests:</h1><hr>
 
-  {% for friend in object.friends.all %}
-    {{ friend_list }}
+  <form method="get" action="{% url 'social_network:friend_list' pk=request.user.pk %}">
+    <div class="input-group">
+      <input
+          type="search"
+          class="form-control rounded"
+          name="query"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon" />
+    </div>
+  </form><br>
+
+  <h1>Friend list:</h1><hr>
+
+  {% for friend in friends %}
     <ul class="list-group">
       <li class="list-group-item">
         <div class="row">

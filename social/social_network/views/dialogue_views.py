@@ -33,7 +33,7 @@ class DialogueView(LoginRequiredMixin, View):
             return render(request, "403.html")
 
         context = {
-            "messages": dialogue.message.all(),
+            "all_messages": dialogue.message.all(),
             "form": MessageForm()
         }
         return render(request, "social_network/dialogue.html", context)

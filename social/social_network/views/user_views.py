@@ -91,6 +91,5 @@ class UserListView(LoginRequiredMixin, View):
         if request.GET:
             query = request.GET["query"]
             users = UserModel.objects.filter(username__contains=query, is_active=True)
-            print(users)
 
         return render(request, 'social_network/users.html', {"query": query, "users": users})

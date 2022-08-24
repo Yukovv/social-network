@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
@@ -71,10 +71,20 @@ class FriendRequestsView(LoginRequiredMixin, ListView):
     template_name = 'social_network/friend_requests.html'
 
 
-class FriendListView(LoginRequiredMixin, DetailView):
+class FriendListView(LoginRequiredMixin, View):
     """
     List of user's friends.
     """
-    queryset = FriendList.objects.prefetch_related('friends')
 
-    template_name = 'social_network/friend_list.html'
+    def get(self, request: HttpRequest, *args, **kwargs):
+
+        friend_list = FriendList.objects.get(user=request.user)
+        friends = friend_list.friends.all()
+        query = request.GET
+
+        if request.GET:
+            query = request.GET["query"]
+            friends = filter(lambda x: query in x.username, friend_list.friends.all())
+
+        return render(request, 'social_network/friend_list.html', {"query": query, "friends": friends})
+
