@@ -27,11 +27,12 @@ class UserProfileView(LoginRequiredMixin, DetailView):
             dialogues = [None]
         context["dialogue"] = dialogues[0]
 
-        # is_add_friend_btn var for 'add to friends' button in the template
+        # is_add_friend_btn variable for 'add to friends' button in the template
         is_add_friend_btn = True
         # friend request from user1 to user2 and from user2 to user1
         friend_request_1 = FriendRequest.objects.filter(sender=self.request.user, receiver=self.object).first()
         friend_request_2 = FriendRequest.objects.filter(sender=self.object, receiver=self.request.user).first()
+        # 'add to friend' button shouldn't be presented on the profile page if:
         if (
             self.request.user.pk == self.object.pk
             or self.request.user in [friend.user for friend in self.object.friends.all()]
@@ -84,12 +85,12 @@ class UserListView(LoginRequiredMixin, View):
     """
     def get(self, request: HttpRequest, *args, **kwargs):
 
-        users = UserModel.objects.all().order_by("username")
+        users = UserModel.objects.filter(is_active=True).order_by("username")
         query = request.GET
 
         if request.GET:
             query = request.GET["query"]
-            users = UserModel.objects.filter(username__contains=query)
+            users = UserModel.objects.filter(username__contains=query, is_active=True)
             print(users)
 
         return render(request, 'social_network/users.html', {"query": query, "users": users})

@@ -83,6 +83,14 @@
 
   <div class="col-9">
     <div class="container my-3">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-info" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+    {% endif %}
+
     {% block content %}
     Base Body
     {% endblock %}

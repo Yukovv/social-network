@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, BaseUserManager
 from django.db.models.signals import post_save
 from PIL import Image
 
@@ -9,6 +9,16 @@ from django.dispatch import receiver
 from social_network.models import FriendList
 
 UserModel: User = get_user_model()
+
+
+class EmailUserManager(BaseUserManager):
+    """
+    User manager for email confirmation.
+    """
+    def _create_user(self, email, password, **extra_fields):
+        """
+        Creates and saves user with the given password and email.
+        """
 
 
 class UserProfile(models.Model):
