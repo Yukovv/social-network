@@ -39,3 +39,10 @@ class Post(models.Model):
         Return a list of users eho liked the post.
         """
         return [user for user in self.likes.all()]
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="user_comments")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_comments")
+    text = models.TextField(max_length=500)
+    time = models.DateTimeField(default=timezone.now)

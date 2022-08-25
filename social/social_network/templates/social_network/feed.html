@@ -9,47 +9,8 @@
   <h1>Friend's posts:</h1><hr>
 
   {% for post in object_list %}
-
+    {% include 'social_network/post_details.html' with post=post %}
     <hr style="color: blue">
-
-    <div id="post_{{post.pk}}">
-      <h3>
-        "{{ post.title }}"
-        by <a href="{% url 'social_network:profile' pk=post.user.pk %}">{{ post.user }}</a>
-      </h3>
-      <p>{{ post.body }}</p>
-    </div>
-
-    <div>
-      {% if post.img %}
-      <img src="{% get_media_prefix %}{{ post.img }}"><br>
-      {% endif %}
-      <i style="color: gray">{{ post.time }}</i>
-    </div><br>
-
-    <div class="row">
-      <div class="col" align="left">
-        {% if request.user in post.likes.all %}
-          <form action="{% url 'social_network:like' post_pk=post.pk %}" method="post">
-            {% csrf_token %}
-            <input
-                type="submit"
-                class="btn btn-danger btn-sm"
-                value="{{ post.likes.all|length }} Likes"
-            >
-          </form>
-        {% else %}
-          <form action="{% url 'social_network:like' post_pk=post.pk %}" method="post">
-            {% csrf_token %}
-            <input
-                type="submit"
-                class="btn btn-light btn-sm"
-                value="{{ post.likes.all|length }} Likes"
-            >
-          </form>
-        {% endif %}
-      </div>
-    </div>
   {% empty %}
     <strong>No news yet.</strong>
   {% endfor %}
