@@ -10,7 +10,7 @@
 почты. При регистрации, с использованием post_save, для пользователя автоматически генерируются профиль и список друзей.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="90%">
+<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/register.gif" width="100%">
 </p>
 
 
@@ -50,7 +50,7 @@
    Для добавления поста есть отдельная вкладка в навигационной панели. Пост содержит заголовок, основной текст и изображение. После добавления пост появится в профиле, а также в ленте у друзей.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/create_post.gif" width="90%">
+<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/create_post.gif" width="100%">
 </p>
 
 * #### Лента.
@@ -59,7 +59,7 @@
 Посты можно лайкать или убирать свой лайк, также можно оставлять комментарии.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/feed.gif" width="90%">
+<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/feed.gif" width="100%">
 </p>
 
 ### Друзья.
@@ -77,7 +77,7 @@
    На вкладку загружается список друзей пользователя. Есть поиск по друзьям.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/add_to_friends.gif" width="90%">
+<img src="https://github.com/Yukovv/social-network/blob/master/readme_media/add_to_friends.gif" width="100%">
 </p>
 
 
