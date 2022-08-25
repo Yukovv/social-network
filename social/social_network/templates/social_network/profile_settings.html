@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+  {% load crispy_forms_tags %}
 
   {% if form.errors %}
     {% for error in form.errors %}
@@ -16,7 +17,7 @@
   <div>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy }}<br>
       <input class="btn btn-primary" type="submit" value="Update profile">
     </form>
   </div>

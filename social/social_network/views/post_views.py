@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView
 
-from social_network.forms import PostCreationForm
+from social_network.forms import PostCreationForm, CommentForm
 from social_network.models import Post
 
 
@@ -62,9 +62,32 @@ class FeedView(LoginRequiredMixin, ListView):
     """
     Friends posts view
     """
+    template_name = 'social_network/feed.html'
+
     def get_queryset(self):
         friends = [friend.user for friend in self.request.user.friends.all()]
         queryset = Post.objects.filter(user__in=friends).select_related('user').prefetch_related('likes')
         return queryset
 
-    template_name = 'social_network/feed.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = CommentForm()
+        context["form"] = form
+        return context
+
+
+class CommentView(LoginRequiredMixin, View):
+    """
+    View to add comment.
+    """
+    def post(self, request: HttpRequest, post_pk, *args, **kwargs):
+        post = Post.objects.get(pk=post_pk)
+        form = CommentForm(data=request.POST)
+        print(request.user)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = self.request.user
+            comment.post = post
+            comment.save()
+
+        return redirect(request.META.get('HTTP_REFERER') + f"#post_{post_pk}")

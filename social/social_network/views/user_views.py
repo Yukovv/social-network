@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 
-from social_network.forms import ProfileForm
+from social_network.forms import ProfileForm, CommentForm
 from social_network.models import Post, Dialogue as DialogueModel, FriendRequest
 from social_authorization.models import UserModel, UserProfile
 
@@ -19,12 +19,15 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         context["user_posts"] = Post.objects.filter(user=self.object).prefetch_related('likes')
 
         # load dialogue with a profile's owner or create it
+
         dialogues = DialogueModel.objects.filter(members__in=[self.request.user.pk]).filter(members__in=[self.object.pk])
-        if not dialogues:
+
+        if self.request.user.pk == self.object.pk:
+            dialogues = [None]
+        elif not dialogues:
             dialogue = DialogueModel.create(self.request.user, self.object)
             dialogues = [dialogue]
-        elif self.request.user.pk == self.object.pk:
-            dialogues = [None]
+
         context["dialogue"] = dialogues[0]
 
         # is_add_friend_btn variable for 'add to friends' button in the template
@@ -42,6 +45,9 @@ class UserProfileView(LoginRequiredMixin, DetailView):
             is_add_friend_btn = False
 
         context["is_add_friend_btn"] = is_add_friend_btn
+
+        # form for comments
+        context["form"] = CommentForm()
 
         return context
 

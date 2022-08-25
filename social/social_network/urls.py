@@ -16,6 +16,7 @@ from .views import (
     PostCreateView,
     PostDeleteView,
     LikeView,
+    CommentView,
     FeedView,
     DialogueView,
     DialoguesListView,
@@ -42,6 +43,7 @@ urlpatterns = [
     path('posts/<int:pk>/delete-post/', PostDeleteView.as_view(), name="post_delete"),
     path('create_post/', PostCreateView.as_view(), name="create_post"),
     path('like_post/<int:post_pk>/', LikeView.as_view(), name="like"),
+    path('add_comment/<int:post_pk>/', CommentView.as_view(), name="comment"),
     path('feed/<int:pk>/', FeedView.as_view(), name="feed"),
 
     # dialogue views

@@ -1,6 +1,7 @@
 <div>
 
   {% load static %}
+  {% load crispy_forms_tags %}
 
     <div id="post_{{ post.pk }}">
       <h3>
@@ -57,16 +58,32 @@
       <h3>Comments: </h3>
 
       {% for comment in post.post_comments.all %}
-        <strong>
-          <a href="{% url 'social_network:profile' pk=post.user.pk %}">
-            {{ post.user.username }}
-          </a>
-        </strong><br>
-        <p>{{ post.comment.text }}</p><br>
-        <i style="color: gray">{{ post.time }}</i>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <strong>
+              <a href="{% url 'social_network:profile' pk=post.user.pk %}">
+                {{ comment.user }}
+              </a>
+            </strong>
+          </div>
+          <div class="col"><p>{{ comment.text }}</p></div>
+        </div>
+        <i style="color: gray">{{ post.time }}</i><br><br>
       {% empty %}
         <strong>No comments yet.</strong>
       {% endfor %}
+    </div>
+
+    <div>
+      <form action="{% url 'social_network:comment' post_pk=post.pk %}" method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+        {{ form|crispy }}
+        </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Comment">
+      </form>
     </div>
 
 </div>

@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+  {% load crispy_forms_tags %}
 
   <h1>Login</h1>
 
@@ -23,9 +24,9 @@
 
   <form method="post">
   {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
 
-  <input type="submit" value="login">
+  <input class="btn btn-primary" type="submit" value="login">
   <input type="hidden" name="next" value="{{ next }}">
   </form>
 

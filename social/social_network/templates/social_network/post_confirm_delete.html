@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block content %}
+  {% load crispy_forms_tags %}
   <h1>Delete post <strong>"{{ post.title }}"</strong>?</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <input type="submit" value="Delete!">
   </form>
   <hr>

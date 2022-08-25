@@ -44,7 +44,11 @@ INSTALLED_APPS = [
 
     'social_authorization.apps.SocialAuthorizationConfig',
     'social_network.apps.SocialNetworkConfig',
+
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +142,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_FROM = 'jik519000@gmail.com'
 EMAIL_HOST_USER = 'jik519000@gmail.com'
-EMAIL_HOST_PASSWORD = 'ymhdlfirotoqqafn'
+EMAIL_HOST_PASSWORD = 'ydfswonplrqdsnvt'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

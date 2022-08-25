@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+  {% load crispy_forms_tags %}
 
   {% for message in all_messages %}
     <div class="container-fluid">
@@ -23,8 +24,9 @@
   <div>
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Send">
+      {{ form|crispy }}
+      <br>
+      <input class="btn btn-primary" type="submit" value="Send">
     </form>
   </div>
 

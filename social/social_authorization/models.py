@@ -27,7 +27,6 @@ class UserProfile(models.Model):
         MALE = 'M'
         FEMALE = 'F'
         OTHER = 'O'
-        NONE = '-'
 
     user: UserModel = models.OneToOneField(
         UserModel,
@@ -37,7 +36,7 @@ class UserProfile(models.Model):
 
     birthday = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=30, blank=True)
-    gender = models.CharField(max_length=10, choices=Gender.choices, blank=True, default=Gender.NONE)
+    gender = models.CharField(max_length=10, choices=Gender.choices, blank=True)
     bio = models.TextField(max_length=300, blank=True)
     occupation = models.CharField(max_length=50, blank=True)
     avatar = models.ImageField(null=True, upload_to='images/avatars', blank=True)
