@@ -1,9 +1,8 @@
 # Тема: "Социальная сеть"
-___
 
 Проект на Django, состоит из 2 приложений: social_authorization - работает, в основном, с неавторизованными пользователями, а также social_network - для выполнения действий после авторизации.
 
-___
+
 ## Social_authorization.
 
 
@@ -11,7 +10,7 @@ ___
 почты. При регистрации, с использованием post_save, для пользователя автоматически генерируются профиль и список друзей.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="80%">
+<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="50%">
 </p>
 
 
@@ -51,7 +50,7 @@ ___
    Для добавления поста есть отдельная вкладка в навигационной панели. Пост содержит заголовок, основной текст и изображение. После добавления пост появится в профиле, а также в ленте у друзей.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="80%">
+<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="50%">
 </p>
 
 * #### Лента.
@@ -60,7 +59,7 @@ ___
 Посты можно лайкать или убирать свой лайк, также можно оставлять комментарии.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="80%">
+<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="50%">
 </p>
 
 ### Друзья.
@@ -78,10 +77,10 @@ ___
    На вкладку загружается список друзей пользователя. Есть поиск по друзьям.
 
 <p align="center">
-<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="80%">
+<img src="https://github.com/Yukovv/social-network/readme_media/register.gif" width="50%">
 </p>
 
-___
+
 ## Использованные технологии:
 
 1. Django - составляет большую часть проекта.
