@@ -10,7 +10,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Delete!">
+    <input class="btn btn-danger" type="submit" value="Delete!">
   </form>
   <hr>
   <div>
