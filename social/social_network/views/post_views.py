@@ -63,7 +63,7 @@ class LikeView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-class FeedView(LoginRequiredMixin, ListView):
+class FeedView(UserPassesTestMixin, ListView):
     """
     Friends posts view
     """
@@ -79,6 +79,9 @@ class FeedView(LoginRequiredMixin, ListView):
         form = CommentForm()
         context["form"] = form
         return context
+
+    def test_func(self):
+        return f"/feed/{self.request.user.pk}/" in self.request.path
 
 
 class CommentView(LoginRequiredMixin, View):

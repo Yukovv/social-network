@@ -1,0 +1,87 @@
+[
+  {
+    "model": "social_network.post",
+    "pk": 1,
+    "fields": {
+      "title": "Black title",
+      "body": "Black post with a black picture",
+      "img": "images/posts/U999_2_881x513.jpeg",
+      "time": "2022-08-22T14:33:50.102Z",
+      "user": 1,
+      "likes": [
+        1,
+        2,
+        5
+      ]
+    }
+  },
+  {
+    "model": "social_network.post",
+    "pk": 3,
+    "fields": {
+      "title": "Yellow post",
+      "body": "Yellow",
+      "img": "images/posts/yellow.jpg",
+      "time": "2022-08-23T06:38:48.026Z",
+      "user": 3,
+      "likes": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "social_network.post",
+    "pk": 4,
+    "fields": {
+      "title": "Some title",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "img": "images/posts/cicero2.jpg",
+      "time": "2022-08-23T13:35:35.188Z",
+      "user": 5,
+      "likes": [
+        1,
+        2,
+        5
+      ]
+    }
+  },
+  {
+    "model": "social_network.post",
+    "pk": 5,
+    "fields": {
+      "title": "The Ant and The Grasshopper",
+      "body": "The ant and the grasshopper were good friends. In the summer, the ant works hard to fill his storage with food. While the grasshopper was enjoying the fine weather and playing all day. When winter came, the ant was lying cozily in his home surrounded by the food he stored during the summer. While the grasshopper was in his home, hungry and freezing. He asked the ant for food and the ant gave him some. But it wasnТt enough to last the entire winter. When he tried to ask the ant again, the latter replied: УIТm sorry my friend but my food is just enough for my family to last until the end of winter. If I give you more, we too will starve. We had the entire summer to prepare for the winter but you chose to play instead.Ф",
+      "img": "",
+      "time": "2022-08-23T13:50:40.142Z",
+      "user": 2,
+      "likes": []
+    }
+  },
+  {
+    "model": "social_network.post",
+    "pk": 10,
+    "fields": {
+      "title": "The lion and the poor slave.",
+      "body": "There was once a slave who was treated cruelly by his master. One day, he couldnТt take it anymore and ran away to the forest to escape. There he chanced upon a lion who couldnТt walk because of the thorn in its paw. Although heТs scared, the slave mustered his courage and took out the thorn in the lionТs paw. When the lion was finally free of the thorn, he ran into the forest and didnТt harm the slave. Sometime later, the slave was caught by his master along with some animals in the forest. The master then ordered the slave to be thrown into the lionТs den. When the slave saw the lion, he recognized it as the same lion he helped in the forest. The slave was able to escape the den unharmed and he freed all the other animals.",
+      "img": "images/posts/lion_KMZNfzd.jpg",
+      "time": "2022-08-25T13:58:32.554Z",
+      "user": 17,
+      "likes": [
+        17
+      ]
+    }
+  },
+  {
+    "model": "social_network.post",
+    "pk": 11,
+    "fields": {
+      "title": "title",
+      "body": "text",
+      "img": "",
+      "time": "2022-08-29T07:16:47.516Z",
+      "user": 1,
+      "likes": []
+    }
+  }
+]
