@@ -1,5 +1,7 @@
 # Тема: "Социальная сеть"
 
+[![codecov](https://codecov.io/gh/Yukovv/social-network/branch/master/graph/badge.svg?token=GMW0PR1ECG)](https://codecov.io/gh/Yukovv/social-network)
+
 Проект на Django, состоит из 2 приложений: social_authorization - работает, в основном, с неавторизованными пользователями, а также social_network - для выполнения действий после авторизации.
 
 
