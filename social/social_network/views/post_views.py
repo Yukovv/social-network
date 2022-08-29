@@ -55,7 +55,12 @@ class LikeView(LoginRequiredMixin, View):
         else:
             post.remove_like(request.user)
 
-        return redirect(request.META.get('HTTP_REFERER') + f"#post_{post_pk}")
+        url = reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
+        HTTP_REFERER = request.META.get('HTTP_REFERER')
+        if HTTP_REFERER:
+            url = HTTP_REFERER + f"#post_{post_pk}"
+
+        return redirect(url)
 
 
 class FeedView(LoginRequiredMixin, ListView):
@@ -83,11 +88,15 @@ class CommentView(LoginRequiredMixin, View):
     def post(self, request: HttpRequest, post_pk, *args, **kwargs):
         post = Post.objects.get(pk=post_pk)
         form = CommentForm(data=request.POST)
-        print(request.user)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = self.request.user
             comment.post = post
             comment.save()
 
-        return redirect(request.META.get('HTTP_REFERER') + f"#post_{post_pk}")
+        url = reverse("social_network:profile", kwargs={"pk": self.request.user.pk})
+        HTTP_REFERER = request.META.get('HTTP_REFERER')
+        if HTTP_REFERER:
+            url = HTTP_REFERER + f"#post_{post_pk}"
+
+        return redirect(url)
