@@ -5,7 +5,7 @@ from social_authorization.models import UserModel
 from social_network.models import Post, Comment
 
 
-class PostCreationTest(TestCase):
+class PostActionsTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
